@@ -1,0 +1,14 @@
+{
+  "require": {
+    "mongodb/mongodb": "^2.1",
+    "ext-pdo": "*",
+    "ext-mongodb": "*",
+    "ext-readline": "*",
+    "altorouter/altorouter": "^2.0"
+  },
+  "autoload": {
+    "psr-4": {
+      "src\\": "src/"
+    }
+  }
+}
