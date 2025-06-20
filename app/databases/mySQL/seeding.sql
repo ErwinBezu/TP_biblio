@@ -1,48 +1,66 @@
 USE library;
 
-INSERT INTO users (name, email) VALUES
-                                    ('Alice Dupont', 'alice@example.com'),
-                                    ('Bob Martin', 'bob@example.com'),
-                                    ('Claire Leroy', 'claire@example.com'),
-                                    ('David Moreau', 'david.moreau@example.com'),
-                                    ('Émilie Petit', 'emilie.petit@example.com'),
-                                    ('François Lemoine', 'francois.lemoine@example.com'),
-                                    ('Gabriel Fontaine', 'gabriel.fontaine@example.com'),
-                                    ('Hélène Bernard', 'helene.bernard@example.com'),
-                                    ('Isabelle Caron', 'isabelle.caron@example.com'),
-                                    ('Julien Robert', 'julien.robert@example.com');
+INSERT INTO users (name, email, password, role)
+VALUES
+    ('Alice Smith', 'alice@example.com', 'pAss123&', 'reader'),
+    ('Bob Johnson', 'bob@example.com', 'pasS456&', 'admin'),
+    ('Carol Lee', 'carol@example.com', 'paSs789&', 'reader'),
+    ('David Kim', 'david@example.com', 'daVid123&', 'reader'),
+    ('Emma White', 'emma@example.com', 'emMa456&', 'admin'),
+    ('Frank Brown', 'frank@example.com', 'fRank789&', 'reader'),
+    ('Grace Green', 'grace@example.com', 'gEace123&', 'reader'),
+    ('Henry Black', 'henry@example.com', 'hEnry456&', 'reader'),
+    ('Isabelle Grey', 'isabelle@example.com', 'Isa789&', 'reader'),
+    ('Jack Blue', 'jack@example.com', 'jacK123&', 'admin');
 
-INSERT INTO books (title, author, isbn) VALUES
-                                            ('Le mystère de la forêt', 'Jean Valjean', '9781234567890'),
-                                            ('Voyage au centre du code', 'Marie Curie', '9781234567891'),
-                                            ("L\'ombre du bug", 'Alan Turing', '9781234567892'),
-                                            ('Les algorithmes magiques', 'Ada Lovelace', '9781234567893'),
-                                            ('La revanche du code', 'Grace Hopper', '9781234567894'),
-                                            ('Dans les coulisses de la tech', 'Tim Berners-Lee', '9781234567895'),
-                                            ('Les secrets de l’algorithme', 'Katherine Johnson', '9781234567896'),
-                                            ('Code & Chocolat', 'Linus Torvalds', '9781234567897'),
-                                            ('Déboguer la matrice', 'Neo Smith', '9781234567898'),
-                                            ('Python et dragons', 'Guido van Rossum', '9781234567899');
+INSERT INTO books (title, author, isbn)
+VALUES
+    ('The Silent Forest', 'Mark Stone', '9781234567890'),
+    ('Understanding SQL', 'Laura Bright', '9780987654321'),
+    ('Ocean Deep', 'Nina Waters', '9782345678901'),
+    ('The Future Code', 'Alan Byte', '9783456789012'),
+    ('Mindset Shift', 'Carol Dweck', '9784567890123'),
+    ('Secrets of the Sky', 'Tom Cloud', '9785678901234'),
+    ('Learning Python', 'Guido Rossum', '9786789012345'),
+    ('History of Art', 'Maria Canvas', '9787890123456'),
+    ('Space Odyssey', 'Arthur Clark', '9788901234567'),
+    ('The Art of War', 'Sun Tzu', '9789012345678');
 
-INSERT INTO categories (name) VALUES
-                                  ('Science-fiction'),
-                                  ('Informatique'),
-                                  ('Mystère'),
-                                  ('Aventure');
+INSERT INTO categories (name)
+VALUES
+    ('Science Fiction'),
+    ('Education'),
+    ('Technology'),
+    ('History'),
+    ('Philosophy'),
+    ('Self-Help'),
+    ('Fantasy'),
+    ('Programming'),
+    ('Biography'),
+    ('Psychology');
 
-INSERT INTO book_category (book_id, category_id) VALUES
-                                                     (1, 3), -- Le mystère de la forêt → Mystère
-                                                     (1, 4), -- Le mystère de la forêt → Aventure
-                                                     (2, 2), -- Voyage au centre du code → Informatique
-                                                     (3, 2), -- L'ombre du bug → Informatique
-                                                     (3, 3), -- L'ombre du bug → Mystère
-                                                     (4, 1), -- Les algorithmes magiques → Science-fiction
-                                                     (4, 2); -- Les algorithmes magiques → Informatique
+INSERT INTO book_category (bookId, categoryId)
+VALUES
+    (1, 1), (1, 7),
+    (2, 2), (2, 8),
+    (3, 1), (3, 10),
+    (4, 3), (4, 8),
+    (5, 6),
+    (6, 7), (6, 1),
+    (7, 8), (7, 3),
+    (8, 4),
+    (9, 1),
+    (10, 5);
 
-INSERT INTO users_books (user_id, book_id) VALUES
-                                               (1, 1), -- Alice possède "Le mystère de la forêt"
-                                               (2, 2), -- Bob possède "Voyage au centre du code"
-                                               (3, 3), -- Claire possède "L'ombre du bug"
-                                               (1, 4); -- Alice possède aussi "Les algorithmes magiques"
-
-
+INSERT INTO users_books (bookId, userId)
+VALUES
+    (1, 1),
+    (2, 2),
+    (3, 3),
+    (4, 4),
+    (5, 5),
+    (6, 6),
+    (7, 7),
+    (8, 8),
+    (9, 9),
+    (10, 10);

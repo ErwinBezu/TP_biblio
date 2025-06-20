@@ -1,0 +1,4 @@
+DB_HOST=host
+DB_NAME=nomdb
+DB_USERNAME=username
+DB_PASSWORD=password
