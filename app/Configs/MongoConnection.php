@@ -1,6 +1,6 @@
 <?php
 
-namespace src\configs;
+namespace App\Configs;
 
 use MongoDB\Client;
 use MongoDB\Collection;

@@ -1,27 +1,31 @@
 <?php
 
-namespace src\configs;
+namespace App\Configs;
 
 use PDO;
 use PDOException;
 
 class MySqlConnection
 {
-    private static string $host = "localhost";
-    private static string $db_name = "db_name";
-    private static string $username = "username";
-    private static string $password = "password";
     private static ?PDO $connection = null;
 
     private function __construct(){
+
+        $configData = parse_ini_file(__DIR__ . '/../../config.ini');
+        if (!$configData) {
+            throw new \RuntimeException("Impossible de lire le fichier config.ini");
+        }
+
         try {
             $db = new PDO(
-                "mysql:host=". self::$host. ";dbname=". self::$db_name,
-                self::$username,
-                self::$password
+                "mysql:host={$configData['DB_HOST']};dbname={$configData['DB_NAME']};charset=utf8",
+                $configData['DB_USERNAME'],
+                $configData['DB_PASSWORD'],
+                array(PDO::ATTR_ERRMODE => PDO::ERRMODE_WARNING)
             );
 
             $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+            echo "connection faite";
         } catch (PDOException $e){
             error_log("Erreur de connexion : " . $e->getMessage(), PHP_EOL);
             return; // Ne continue pas si la connexion échoue.
