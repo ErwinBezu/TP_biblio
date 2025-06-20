@@ -7,7 +7,7 @@ use App\Models\Book;
 use App\Models\User;
 use App\Models\Users_Books;
 use App\Models\Book_Category;
-
+use App\Configs\MongoConnection;
 class MainController extends CoreController
 {
     /**
@@ -30,14 +30,20 @@ class MainController extends CoreController
 //        $this->show('main/home', $viewData);
 //    }
 
+
     public function home()
     {
-        echo "La route fonctionne !";
-        require __DIR__ . '/../views/book/index.tpl.php';
+        echo "La route fonctionne tata!<br>";
+
+        $collection = MongoConnection::getMongoCollection('LibraryLogs', 'reviews');
+        $reviews = $collection->find(); // <= on récupère les documents ici
+
+        // Le curseur MongoDB contient des objets BSON => on peut les convertir ou les afficher directement
+        echo "<h2>Contenu de la collection 'reviews' :</h2>";
+        foreach ($reviews as $review) {
+            echo '<pre>' . print_r($review, true) . '</pre>';
+        };
+
     }
 
-    public function test($name)
-    {
-        echo "Salut, $name !";
-    }
 }

@@ -2,6 +2,7 @@
 
 require_once __DIR__ . '/../vendor/autoload.php';
 
+use App\Configs\MongoConnection;
 use App\Configs\MySqlConnection;
 /* ------------
 --- ROUTAGE ---
@@ -25,6 +26,9 @@ $router->map('GET', '/hello/[a:name]', function ($name) {
 
 
 //$conn = MySqlConnection::getConnection();
+//$reviewsData = MongoConnection::getMongoCollection('LibraryLogs', 'reviews');
+//var_dump($reviewsData);
+
 
 
 // Traitement de la requête

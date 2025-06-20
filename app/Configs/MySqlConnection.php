@@ -18,14 +18,14 @@ class MySqlConnection
 
         try {
             $db = new PDO(
-                "mysql:host={$configData['DB_HOST']};dbname={$configData['DB_NAME']};charset=utf8",
-                $configData['DB_USERNAME'],
-                $configData['DB_PASSWORD'],
+                "mysql:host={$configData["DB_HOST"]};dbname={$configData["DB_NAME"]};charset=utf8",
+                $configData["DB_USERNAME"],
+                $configData["DB_PASSWORD"],
                 array(PDO::ATTR_ERRMODE => PDO::ERRMODE_WARNING)
             );
 
             $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-            echo "connection faite";
+            echo PHP_EOL . "connection faite en SQL";
         } catch (PDOException $e){
             error_log("Erreur de connexion : " . $e->getMessage(), PHP_EOL);
             return; // Ne continue pas si la connexion échoue.

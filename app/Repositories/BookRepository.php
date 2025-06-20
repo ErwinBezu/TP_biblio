@@ -23,7 +23,6 @@ class BookRepository
         if (!$book) {
             return false;
         }
-
         return BookMapper::fromDatabase($book);
     }
 
@@ -45,7 +44,6 @@ class BookRepository
         $stmt->execute();
 
         $book->setId($this->db->lastInsertId());
-
         return $book;
     }
 
@@ -62,4 +60,11 @@ class BookRepository
         return $book;
     }
 
+    public function delete(Book $book): Book {
+        $sql='DELETE FROM books WHERE id = :id';
+        $stmt = $this->db->prepare($sql);
+        $stmt->bindValue(':id', $book->getId(), PDO::PARAM_INT);
+        $stmt->execute();
+        return $book;
+    }
 }
