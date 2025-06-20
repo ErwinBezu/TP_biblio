@@ -24,7 +24,7 @@ $router->map('GET', '/hello/[a:name]', function ($name) {
 });
 
 
-$conn = MySqlConnection::getConnection();
+//$conn = MySqlConnection::getConnection();
 
 
 // Traitement de la requête

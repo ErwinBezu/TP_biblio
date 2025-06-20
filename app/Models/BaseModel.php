@@ -31,10 +31,9 @@ abstract class BaseModel
         return $this->id;
     }
 
-    public function setId(?int $id): self
+    public function setId(?int $id): void
     {
         $this->id = $id;
-        return $this;
     }
 
     public function getCreatedAt(): string|\DateTimeInterface|null
@@ -42,10 +41,9 @@ abstract class BaseModel
         return $this->createdAt;
     }
 
-    public function setCreatedAt(string|\DateTimeInterface|null $createdAt): self
+    public function setCreatedAt(string|\DateTimeInterface|null $createdAt): void
     {
         $this->createdAt = $createdAt;
-        return $this;
     }
 
     public function getUpdatedAt(): string|\DateTimeInterface|null
@@ -53,27 +51,9 @@ abstract class BaseModel
         return $this->updatedAt;
     }
 
-    public function setUpdatedAt(string|\DateTimeInterface|null $updatedAt): self
+    public function setUpdatedAt(string|\DateTimeInterface|null $updatedAt): void
     {
         $this->updatedAt = $updatedAt;
-        return $this;
     }
 
-    /**
-     * Validation des données
-     */
-    abstract public function validate(): array;
-
-    /**
-     * Conversion en tableau pour la base de données
-     */
-    abstract public function toDatabase(): array;
-
-    /**
-     * Conversion en JSON
-     */
-    public function toJson(): array
-    {
-        return get_object_vars($this);
-    }
 }

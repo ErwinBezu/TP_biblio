@@ -15,18 +15,29 @@ class MainController extends CoreController
      *
      * @return void
      */
-    public function home(){
+//    public function home(){
+//
+//        // On appelle la méthode show() de l'objet courant
+//        // En argument, on fournit le fichier de Vue
+//        // Par convention, chaque fichier de vue sera dans un sous-dossier du nom du Controller
+//        $viewData = [
+//            'categories' => $categories,
+//            'products' => $products,
+//            'brands' => $brands,
+//            'types' => $types,
+//        ];
+//
+//        $this->show('main/home', $viewData);
+//    }
 
-        // On appelle la méthode show() de l'objet courant
-        // En argument, on fournit le fichier de Vue
-        // Par convention, chaque fichier de vue sera dans un sous-dossier du nom du Controller
-        $viewData = [
-            'categories' => $categories,
-            'products' => $products,
-            'brands' => $brands,
-            'types' => $types,
-        ];
+    public function home()
+    {
+        echo "La route fonctionne !";
+        require __DIR__ . '/../views/book/index.tpl.php';
+    }
 
-        $this->show('main/home', $viewData);
+    public function test($name)
+    {
+        echo "Salut, $name !";
     }
 }
