@@ -35,20 +35,14 @@ class BookController extends CoreController
 
     public function index():void
     {
-
-        echo "Méthode index appelée<br>";
-        $booksWithCategories = $this->bookService->getBooksWithCategories();
-        echo "Nombre de livres récupérés: " . count($booksWithCategories) . "<br>";
-        var_dump($booksWithCategories); // Pour voir le contenu
-
-        $this->show('book/index', ['booksWithCategories' => $booksWithCategories]);
-//        $booksWithCategories = $this->bookService->getBooksWithCategories();
-//        $this->show('book/index', ['booksWithCategories' => $booksWithCategories]);
+        $books = $this->bookService->getBooksWithCategories();
+        $this->show('book/index', ['books' => $books]);
     }
 
     public function create()
     {
         $categories = $this->bookService->getAllCategories();
+        $error = null;
 
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             try {
@@ -69,10 +63,11 @@ class BookController extends CoreController
             }
         }
 
+        // CORRECTION: Toujours passer les catégories à la vue
         $this->show('book/create', [
             'categories' => $categories,
             'selectedCategories' => $_POST['categories'] ?? [],
-            'error' => $error ?? null
+            'error' => $error
         ]);
     }
 

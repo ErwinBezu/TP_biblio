@@ -239,4 +239,6 @@ class BookService
         $isbn = preg_replace('/[-\s]/', '', $isbn);
         return preg_match('/^\d{10}(\d{3})?$/', $isbn);
     }
+
+    //ici BookwithReviews
 }

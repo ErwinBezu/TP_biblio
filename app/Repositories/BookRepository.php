@@ -141,7 +141,8 @@ class BookRepository
 
             // Ajouter les nouvelles catégories
             if (!empty($categoryIds)) {
-                $insertSQL = 'INSERT INTO book_categories (bookId, categoryId VALUES (:bookId, :categoryId)';
+                // CORRECTION: Nom de table et syntaxe SQL corrigés
+                $insertSQL = 'INSERT INTO book_category (bookId, categoryId) VALUES (:bookId, :categoryId)';
                 $insertStmt = $this->db->prepare($insertSQL);
 
                 foreach ($categoryIds as $categoryId) {

@@ -130,6 +130,7 @@
     </style>
 </head>
 <body>
+
 <div class="container">
     <h1>📚 Ajouter un nouveau livre</h1>
 
@@ -190,11 +191,6 @@
                                     <?= in_array($category->getId(), $selectedCategories ?? []) ? 'checked' : '' ?>>
                                 <label for="cat_<?= $category->getId() ?>">
                                     <?= htmlspecialchars($category->getName()) ?>
-                                    <?php if ($category->getDescription()): ?>
-                                        <small style="color: #6c757d; display: block;">
-                                            <?= htmlspecialchars($category->getDescription()) ?>
-                                        </small>
-                                    <?php endif; ?>
                                 </label>
                             </div>
                         <?php endforeach; ?>

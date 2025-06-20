@@ -72,7 +72,7 @@ $router->map('GET', '/', [
 // Liste des livres
 $router->map('GET', '/books', [
     'controller' => BookController::class,
-    'method' => 'test'
+    'method' => 'index'
 ], 'book-list');
 
 // Formulaire de création d'un livre
