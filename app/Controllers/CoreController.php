@@ -8,7 +8,7 @@ abstract class CoreController
     {
 // Créer une variable $router à partir de l'attribut $this-router
 // pour partager le router avec les vues
-        $router = $this->router;
+  //      $router = $this->router;
 
 // Comme $viewData est déclarée comme paramètre de la méthode show()
 // les vues y ont accès
@@ -17,10 +17,10 @@ abstract class CoreController
         $viewData['currentPage'] = $viewName;
 
 // définir l'url absolue pour nos assets
-        $viewData['assetsBaseUri'] = $_SERVER['BASE_URI'] . 'assets/';
+  //      $viewData['assetsBaseUri'] = $_SERVER['BASE_URI'] . 'assets/';
 // définir l'url absolue pour la racine du site
 // /!\ != racine projet, ici on parle du répertoire public/
-        $viewData['baseUri'] = $_SERVER['BASE_URI'];
+       // $viewData['baseUri'] = $_SERVER['BASE_URI'];
 
 // On veut désormais accéder aux données de $viewData, mais sans accéder au tableau
 // La fonction extract permet de créer une variable pour chaque élément du tableau passé en argument

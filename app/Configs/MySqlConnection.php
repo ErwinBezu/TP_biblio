@@ -25,7 +25,7 @@ class MySqlConnection
             );
 
             $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-            echo PHP_EOL . "connection faite en SQL";
+            //echo PHP_EOL . "connection faite en SQL";
         } catch (PDOException $e){
             error_log("Erreur de connexion : " . $e->getMessage(), PHP_EOL);
             return; // Ne continue pas si la connexion échoue.
