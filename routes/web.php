@@ -1,6 +1,8 @@
 <?php
 
 use App\Controllers\CategoryController;
+use App\Controllers\BookController;
+use App\Controllers\UserController;
 
 /* ------------
 --- Catégories ---
@@ -18,11 +20,14 @@ $router->map('GET', '/categories/[i:id]', [
 ], 'category-show');
 
 
-/* ------------
---- Books ---
--------------*/
 
 
-/* ------------
---- Users ---
--------------*/
+$router->map('GET', '/books', [
+    'controller' => BookController::class,
+    'method' => 'index'
+], 'book-list');
+
+$router->map('GET', '/users', [
+    'controller' => UserController::class,
+    'method' => 'index'
+], 'user-list');

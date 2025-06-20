@@ -15,7 +15,7 @@ $router = new AltoRouter();
 require __DIR__ . '/../routes/web.php';
 
 $router->map('GET', '/', function () {
-    echo "Bienvenue sur la page d'accueil !";
+    require __DIR__ . '/../app/views/home.php';
 });
 
 // Route avec paramètre
