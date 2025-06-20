@@ -48,6 +48,36 @@
             border-color: #007bff;
             box-shadow: 0 0 5px rgba(0,123,255,0.3);
         }
+        .categories-section {
+            background-color: #f8f9fa;
+            padding: 20px;
+            border-radius: 5px;
+            border: 1px solid #dee2e6;
+        }
+        .categories-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 10px;
+            margin-top: 10px;
+        }
+        .category-item {
+            display: flex;
+            align-items: center;
+            padding: 8px;
+            background: white;
+            border-radius: 3px;
+            border: 1px solid #e0e0e0;
+        }
+        .category-item input[type="checkbox"] {
+            margin-right: 8px;
+            transform: scale(1.2);
+        }
+        .category-item label {
+            margin: 0;
+            font-weight: normal;
+            cursor: pointer;
+            flex: 1;
+        }
         .btn {
             display: inline-block;
             padding: 12px 24px;
@@ -90,6 +120,12 @@
             font-size: 14px;
             color: #6c757d;
             margin-top: 5px;
+        }
+        .no-categories {
+            color: #6c757d;
+            font-style: italic;
+            padding: 10px;
+            text-align: center;
         }
     </style>
 </head>
@@ -137,6 +173,40 @@
             <div class="form-help">Format : 978-2-123456-78-9 ou 2123456789 (optionnel)</div>
         </div>
 
+        <div class="form-group">
+            <label>🏷️ Catégories</label>
+            <div class="categories-section">
+                <?php if (!empty($categories)): ?>
+                    <div class="form-help" style="margin-bottom: 15px;">
+                        Sélectionnez une ou plusieurs catégories pour ce livre
+                    </div>
+                    <div class="categories-grid">
+                        <?php foreach ($categories as $category): ?>
+                            <div class="category-item">
+                                <input type="checkbox"
+                                       id="cat_<?= $category->getId() ?>"
+                                       name="categories[]"
+                                       value="<?= $category->getId() ?>"
+                                    <?= in_array($category->getId(), $selectedCategories ?? []) ? 'checked' : '' ?>>
+                                <label for="cat_<?= $category->getId() ?>">
+                                    <?= htmlspecialchars($category->getName()) ?>
+                                    <?php if ($category->getDescription()): ?>
+                                        <small style="color: #6c757d; display: block;">
+                                            <?= htmlspecialchars($category->getDescription()) ?>
+                                        </small>
+                                    <?php endif; ?>
+                                </label>
+                            </div>
+                        <?php endforeach; ?>
+                    </div>
+                <?php else: ?>
+                    <div class="no-categories">
+                        Aucune catégorie disponible. <a href="/categories/create">Créer une catégorie</a>
+                    </div>
+                <?php endif; ?>
+            </div>
+        </div>
+
         <div class="form-actions">
             <button type="submit" class="btn">💾 Enregistrer le livre</button>
             <a href="/books" class="btn btn-secondary">❌ Annuler</a>
@@ -153,6 +223,27 @@
         if (!title || !author) {
             e.preventDefault();
             alert('Le titre et l\'auteur sont obligatoires !');
+        }
+    });
+
+    // Amélioration UX : highlight des catégories sélectionnées
+    document.querySelectorAll('.category-item input[type="checkbox"]').forEach(checkbox => {
+        checkbox.addEventListener('change', function() {
+            const item = this.closest('.category-item');
+            if (this.checked) {
+                item.style.backgroundColor = '#e3f2fd';
+                item.style.borderColor = '#007bff';
+            } else {
+                item.style.backgroundColor = 'white';
+                item.style.borderColor = '#e0e0e0';
+            }
+        });
+
+        // Application initiale du style
+        if (checkbox.checked) {
+            const item = checkbox.closest('.category-item');
+            item.style.backgroundColor = '#e3f2fd';
+            item.style.borderColor = '#007bff';
         }
     });
 </script>

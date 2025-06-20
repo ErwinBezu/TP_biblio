@@ -106,19 +106,19 @@
             </tr>
             </thead>
             <tbody>
-            <?php foreach ($books as $book): ?>
+            <?php foreach ($books as $entry): ?>
+                <?php $book = $entry['book']; ?>
                 <tr>
-                    <td><?= htmlspecialchars($book->getId() ?? 'N/A') ?></td>
-                    <td><strong><?= htmlspecialchars($book->getTitle() ?? 'Titre non défini') ?></strong></td>
-                    <td><?= htmlspecialchars($book->getAuthor() ?? 'Auteur inconnu') ?></td>
-                    <td><?= htmlspecialchars($book->getIsbn() ?? 'ISBN non défini') ?></td>
+                    <td><?= htmlspecialchars($book->getId()) ?></td>
+                    <td><strong><?= htmlspecialchars($book->getTitle()) ?></strong></td>
+                    <td><?= htmlspecialchars($book->getAuthor()) ?></td>
+                    <td><?= htmlspecialchars($book->getIsbn()) ?></td>
                     <td>
                         <div class="actions">
-                            <a href="/books/show/<?= $book->getId() ?>" class="btn" style="padding: 5px 10px; font-size: 12px;">👁️ Voir</a>
-                            <a href="/books/edit/<?= $book->getId() ?>" class="btn btn-warning" style="padding: 5px 10px; font-size: 12px;">✏️ Modifier</a>
-                            <a href="/books/delete/<?= $book->getId() ?>"
+                            <a href="/books/<?= $book->getId() ?>" class="btn">👁️ Voir</a>
+                            <a href="/books/<?= $book->getId() ?>/edit" class="btn btn-warning">✏️ Modifier</a>
+                            <a href="/books/<?= $book->getId() ?>/delete"
                                class="btn btn-danger"
-                               style="padding: 5px 10px; font-size: 12px;"
                                onclick="return confirm('Êtes-vous sûr de vouloir supprimer ce livre ?')">🗑️ Supprimer</a>
                         </div>
                     </td>

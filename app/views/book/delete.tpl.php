@@ -12,7 +12,7 @@
             background-color: #f5f5f5;
         }
         .container {
-            max-width: 600px;
+            max-width: 700px;
             margin: 0 auto;
             background: white;
             padding: 30px;
@@ -42,17 +42,53 @@
         }
         .book-detail {
             margin: 8px 0;
+            display: flex;
         }
         .book-detail strong {
             color: #495057;
+            width: 100px;
+            flex-shrink: 0;
         }
-        .warning-message {
+        .categories-section {
             background-color: #fff3cd;
-            color: #856404;
             padding: 15px;
             border-radius: 5px;
             margin: 20px 0;
             border: 1px solid #ffeaa7;
+        }
+        .categories-title {
+            color: #856404;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        .category-tag {
+            display: inline-block;
+            background-color: #ffc107;
+            color: #212529;
+            padding: 4px 8px;
+            border-radius: 10px;
+            font-size: 12px;
+            margin: 2px;
+        }
+        .no-categories {
+            color: #856404;
+            font-style: italic;
+        }
+        .warning-message {
+            background-color: #f8d7da;
+            color: #721c24;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 20px 0;
+            border: 1px solid #f5c6cb;
+        }
+        .danger-info {
+            background-color: #dc3545;
+            color: white;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 20px 0;
+            text-align: center;
         }
         .actions {
             display: flex;
@@ -68,7 +104,7 @@
             font-size: 16px;
             text-decoration: none;
             display: inline-block;
-            transition: background-color 0.3s;
+            transition: all 0.3s;
         }
         .btn-danger {
             background-color: #dc3545;
@@ -76,6 +112,7 @@
         }
         .btn-danger:hover {
             background-color: #c82333;
+            transform: translateY(-1px);
         }
         .btn-secondary {
             background-color: #6c757d;
@@ -91,6 +128,21 @@
             border-radius: 5px;
             margin-bottom: 20px;
             border: 1px solid #f5c6cb;
+        }
+        .consequences {
+            list-style: none;
+            padding: 0;
+        }
+        .consequences li {
+            padding: 8px 0;
+            border-bottom: 1px solid #dee2e6;
+        }
+        .consequences li:before {
+            content: '⚠️';
+            margin-right: 8px;
+        }
+        .consequences li:last-child {
+            border-bottom: none;
         }
     </style>
 </head>
@@ -108,36 +160,104 @@
             <h1 class="warning-title">Confirmation de suppression</h1>
         </div>
 
-        <div class="warning-message">
-            <strong>Attention !</strong> Cette action est irréversible. Le livre sera définitivement supprimé de la base de données.
+        <div class="danger-info">
+            <strong>🔥 ATTENTION - ACTION IRRÉVERSIBLE</strong><br>
+            Cette suppression est définitive et ne peut pas être annulée
         </div>
 
         <div class="book-info">
-            <h3>Livre à supprimer :</h3>
+            <h3 style="margin-top: 0; color: #dc3545;">📖 Livre à supprimer :</h3>
+
             <div class="book-detail">
-                <strong>ID :</strong> <?= htmlspecialchars($book->getId()) ?>
+                <strong>ID :</strong>
+                <span><?= htmlspecialchars($book->getId()) ?></span>
             </div>
             <div class="book-detail">
-                <strong>Titre :</strong> <?= htmlspecialchars($book->getTitle() ?? 'Titre non défini') ?>
+                <strong>Titre :</strong>
+                <span><?= htmlspecialchars($book->getTitle() ?? 'Titre non défini') ?></span>
             </div>
             <div class="book-detail">
-                <strong>Auteur :</strong> <?= htmlspecialchars($book->getAuthor() ?? 'Auteur inconnu') ?>
+                <strong>Auteur :</strong>
+                <span><?= htmlspecialchars($book->getAuthor() ?? 'Auteur inconnu') ?></span>
             </div>
             <div class="book-detail">
-                <strong>ISBN :</strong> <?= htmlspecialchars($book->getIsbn() ?? 'Non renseigné') ?>
+                <strong>ISBN :</strong>
+                <span><?= htmlspecialchars($book->getIsbn() ?? 'Non renseigné') ?></span>
             </div>
         </div>
 
+        <!-- Section des catégories -->
+    <?php if (!empty($categories)): ?>
+        <div class="categories-section">
+            <div class="categories-title">
+                🏷️ Catégories associées (<?= count($categories) ?>) :
+            </div>
+            <?php foreach ($categories as $category): ?>
+                <span class="category-tag">
+                        <?= htmlspecialchars($category->getName()) ?>
+                    </span>
+            <?php endforeach; ?>
+        </div>
+    <?php endif; ?>
+
+        <div class="warning-message">
+            <strong>Conséquences de cette suppression :</strong>
+            <ul class="consequences">
+                <li>Le livre sera définitivement supprimé de la base de données</li>
+                <?php if (!empty($categories)): ?>
+                    <li>Toutes les associations avec les <?= count($categories) ?> catégorie<?= count($categories) > 1 ? 's' : '' ?> seront supprimées</li>
+                <?php endif; ?>
+                <li>Cette action ne peut pas être annulée</li>
+                <li>Toutes les données liées à ce livre seront perdues</li>
+            </ul>
+        </div>
+
         <div class="actions">
-            <form method="POST" action="/books/delete/<?= $book->getId() ?>" style="display: inline;">
-                <button type="submit" class="btn btn-danger" onclick="return confirm('Êtes-vous absolument sûr de vouloir supprimer ce livre ?')">
+            <form method="POST" action="/books/<?= $book->getId() ?>/delete" style="display: inline;">
+                <button type="submit"
+                        class="btn btn-danger"
+                        onclick="return confirmDeletion()">
                     🗑️ Supprimer définitivement
                 </button>
             </form>
-            <a href="/books/show/<?= $book->getId() ?>" class="btn btn-secondary">
-                ❌ Annuler
+            <a href="/books/<?= $book->getId() ?>" class="btn btn-secondary">
+                ❌ Annuler et retourner au livre
             </a>
         </div>
+
+        <script>
+            function confirmDeletion() {
+                const bookTitle = '<?= htmlspecialchars($book->getTitle() ?? "ce livre") ?>';
+                const categoriesCount = <?= count($categories ?? []) ?>;
+
+                let confirmMessage = `🔥 DERNIÈRE CONFIRMATION\n\n`;
+                confirmMessage += `Vous êtes sur le point de supprimer définitivement :\n`;
+                confirmMessage += `"${bookTitle}"\n\n`;
+
+                if (categoriesCount > 0) {
+                    confirmMessage += `⚠️ Ce livre est associé à ${categoriesCount} catégorie${categoriesCount > 1 ? 's' : ''}.\n`;
+                    confirmMessage += `Ces associations seront également supprimées.\n\n`;
+                }
+
+                confirmMessage += `Cette action est IRRÉVERSIBLE.\n\n`;
+                confirmMessage += `Tapez "SUPPRIMER" pour confirmer :`;
+
+                const userInput = prompt(confirmMessage);
+
+                if (userInput === "SUPPRIMER") {
+                    return confirm(`✅ Confirmation finale.\n\nLe livre "${bookTitle}" va être supprimé.\n\nContinuer ?`);
+                } else if (userInput !== null) {
+                    alert('❌ Suppression annulée.\n\nVous devez taper exactement "SUPPRIMER" pour confirmer.');
+                }
+
+                return false;
+            }
+
+            // Focus sur le bouton annuler par défaut pour éviter les suppressions accidentelles
+            document.addEventListener('DOMContentLoaded', function() {
+                document.querySelector('.btn-secondary').focus();
+            });
+        </script>
 
     <?php else: ?>
         <div style="text-align: center; padding: 40px;">
