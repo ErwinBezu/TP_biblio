@@ -16,7 +16,7 @@ $router = new AltoRouter();
 require __DIR__ . '/../routes/web.php';
 
 $router->map('GET', '/', function () {
-    require __DIR__ . '/../app/views/home.php';
+    require __DIR__ . '/../app/views/home.tpl.php';
 });
 
 // Route avec paramètre

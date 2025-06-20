@@ -17,13 +17,15 @@ class ReviewController extends CoreController
         $this->reviewService = new ReviewService($reviewRepository);
     }
 
-    public function index(): void
+    public function index():void
     {
+        //return $this->reviewService->getAllReviews();
         $reviews = $this->reviewService->getAllReviews();
-        echo "<h2>Contenu de la collection 'reviews' :</h2>";
-        foreach ($reviews as $review) {
-        echo '<pre>' . print_r($review, true) . '</pre>';
-     };
+        $this->show('home', ['reviews' => $reviews]);
+//        echo "<h2>Contenu de la collection 'reviews' :</h2>";
+ //       foreach ($reviews as $review) {
+ //       echo '<pre>' . print_r($review, true) . '</pre>';
+
     }
 }
 

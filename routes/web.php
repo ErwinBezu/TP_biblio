@@ -61,7 +61,7 @@ use App\Controllers\ReadingSessionsController;
 //
 //// Page d'accueil
 $router->map('GET', '/', [
-    'controller' => ReadingSessionsController::class,
+    'controller' => ReviewController::class,
     'method' => 'index'
 ], 'main-home');
 
