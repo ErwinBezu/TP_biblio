@@ -219,11 +219,6 @@
                                         <?= in_array($category->getId(), $selectedCategories ?? []) ? 'checked' : '' ?>>
                                     <label for="cat_<?= $category->getId() ?>">
                                         <?= htmlspecialchars($category->getName()) ?>
-                                        <?php if ($category->getDescription()): ?>
-                                            <small style="color: #6c757d; display: block;">
-                                                <?= htmlspecialchars($category->getDescription()) ?>
-                                            </small>
-                                        <?php endif; ?>
                                     </label>
                                 </div>
                             <?php endforeach; ?>
