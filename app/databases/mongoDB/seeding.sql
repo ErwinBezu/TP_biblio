@@ -24,3 +24,32 @@ db.reviews.insertMany([
   }
 ])
 
+db.readingSessions.insertMany([
+  {
+    userId: ObjectId("6"),
+    bookId: ObjectId("4"),
+    pagesRead: 35,
+    durationMinutes: 60,
+    personalNotes: "Great start, easy to read.",
+    date: ISODate("2024-06-15T18:00:00Z")
+
+  },
+  {
+    userId: ObjectId("3")
+    bookId: ObjectId("1"),
+    pagesRead: 20,
+    durationMinutes: 45,
+    personalNotes: "Somewhat complex in parts.",
+    date: ISODate("2024-06-16T10:00:00Z")
+  },
+  {
+    pages_read: 50,
+    time_spent: 70,
+    personal_notes: "Loved chapters 3 and 4.",
+    date: ISODate("2024-06-17T20:00:00Z"),
+    user_id: ObjectId("1"),
+    book_id: ObjectId("2")
+  }
+])
+
+
