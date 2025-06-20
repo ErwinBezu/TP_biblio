@@ -25,14 +25,6 @@ class BookController extends CoreController
         $categoryRepository = new CategoryRepository($db);
         $this->bookService = new BookService($bookRepository, $categoryRepository);
     }
-
-    public function test(): void
-    {
-        $books = $this->bookService->getBooksWithCategories();
-        $this->show('book/index', ['books' => $books]);
-
-    }
-
     public function index():void
     {
         $books = $this->bookService->getBooksWithCategories();
